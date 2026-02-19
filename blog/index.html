@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Blog - Blog Forge</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="../css/spectre.css">
+    <link rel="stylesheet" href="../css/spectre-icons.css">
+    <link rel="stylesheet" href="../css/spectre-exp.css">
+    <link rel="stylesheet" href="../css/yeo.css">
+</head>
+
+<body>
+    <div id="navbar-placeholder"></div>
+
+    <div class="blog-hero">
+        <div class="container">
+            <h1>Our Insights</h1>
+            <p style="opacity: 0.8;">Discover the latest trends in UI/UX and Software development.</p>
+        </div>
+    </div>
+
+    <div class="blog-container">
+        <div class="container">
+            <div class="columns" id="blog-posts-grid">
+                <div class="column col-12 text-center">
+                    <p>Loading articles...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="../js/site-config.js"></script>
+    <script src="../js/components.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const grid = document.getElementById('blog-posts-grid');
+
+            try {
+                // 1. Determine the absolute-ish path for the blog folder
+                // This works whether you are at /blog, /blog/, or /blog/index.html
+                const currentPath = window.location.pathname;
+                const blogPathIndex = currentPath.indexOf('/blog');
+                const blogBase = currentPath.substring(0, blogPathIndex + 5); // "/blog" or "/something/blog"
+
+                // 2. Fetch the manifest
+                let response = await fetch(`${blogBase}/posts.json`);
+                if (!response.ok) throw new Error(`Could not find posts.json at ${blogBase}/posts.json`);
+
+                const postIds = await response.json();
+                grid.innerHTML = '';
+
+                // 3. Fetch each individual JSON
+                for (const id of postIds) {
+                    try {
+                        const postResponse = await fetch(`${blogBase}/data/${id}.json`);
+                        const post = await postResponse.json();
+
+                        // Determine if image is external or local
+                        const imgPath = post.image.startsWith('http') ? post.image : `../images/${post.image}`;
+
+                        const postCard = `
+                            <div class="column col-4 col-md-6 col-sm-12">
+                                <a href="${blogBase}/post.html?id=${id}" class="blog-card" style="text-decoration: none;">
+                                    <img src="${imgPath}" alt="${post.title}" class="blog-card-img" style="background: ${post.bgColor}; padding: 0; object-fit: cover; height: 180px; width: 100%;">
+                                    <div class="blog-card-content">
+                                        <span class="blog-card-tag">${post.tag}</span>
+                                        <h3 style="color: #2E2E2E;">${post.title}</h3>
+                                        <p>${post.summary}</p>
+                                        <div class="blog-card-footer">
+                                            <div class="author-info">
+                                                <img src="../images/${post.authorImg}" alt="${post.author}" class="author-img">
+                                                <span class="author-name">${post.author}</span>
+                                            </div>
+                                            <span class="blog-date">${post.date}</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        `;
+                        grid.innerHTML += postCard;
+                    } catch (e) {
+                        console.error(`Failed to load post data for ${id}`, e);
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading manifest:', error);
+                grid.innerHTML = `<div class="column col-12"><p>Failed to load articles. Error: ${error.message}</p></div>`;
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Loading Post... - Blog Forge</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="../css/spectre.css">
+    <link rel="stylesheet" href="../css/spectre-icons.css">
+    <link rel="stylesheet" href="../css/spectre-exp.css">
+    <link rel="stylesheet" href="../css/yeo.css">
+    <!-- Markdown Renderer -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<body>
+    <div id="navbar-placeholder"></div>
+
+    <div id="post-container">
+        <!-- Header Section -->
+        <div class="post-header" id="dynamic-header">
+            <div class="container">
+                <span class="post-tag" id="post-tag">Tag</span>
+                <h1 id="post-title">Loading...</h1>
+                <div class="post-meta" style="margin-bottom: 2rem;">
+                    <div class="post-author">
+                        <img src="" alt="" class="author-thumb" id="author-img">
+                        <span id="author-name">Author</span>
+                    </div>
+                    <span>•</span>
+                    <span id="post-date">Date</span>
+                    <span>•</span>
+                    <span id="read-time">Read Time</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Section -->
+        <div class="container">
+            <div class="post-content">
+                <!-- Hero Image -->
+                <div id="post-hero-area" style="display: none; margin-bottom: 3rem;">
+                    <img id="post-hero-img" src="" alt=""
+                        style="width: 100%; max-height: 450px; object-fit: cover; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+                </div>
+
+                <div id="post-body">
+                    <p>Loading article content...</p>
+                </div>
+
+                <!-- Action Buttons moved to bottom with improved symmetry -->
+                <div id="post-actions-area"
+                    style="display: none; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid #eee; text-align: center;">
+                    <h4 style="margin-bottom: 1.5rem; font-size: 1.1rem;">Take Action</h4>
+                    <div class="post-actions"
+                        style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                        <a id="btn-visit" href="#" target="_blank" class="btn btn-primary"
+                            style="background:#0C0091; border:none; width: 220px; height: 50px; line-height: 26px; border-radius: 50px; display: none; font-weight: 600; font-size: 0.9rem; transition: transform 0.2s;">Visit
+                            Website</a>
+                        <a id="btn-download" href="#" target="_blank" class="btn btn-primary"
+                            style="background:#00bc9e; border:none; width: 220px; height: 50px; line-height: 26px; border-radius: 50px; display: none; font-weight: 600; font-size: 0.9rem; transition: transform 0.2s;">Download
+                            Now</a>
+                    </div>
+                </div>
+                <a href="index.html" class="back-to-blog">← Back to Blog</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="../js/site-config.js"></script>
+    <script src="../js/components.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const postId = urlParams.get('id');
+
+            if (!postId) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            try {
+                // Determine the absolute-ish path for the blog folder
+                const currentPath = window.location.pathname;
+                const blogPathIndex = currentPath.indexOf('/blog');
+                const blogBase = currentPath.substring(0, blogPathIndex + 5);
+
+                // 1. Fetch the single JSON file for this post
+                const response = await fetch(`${blogBase}/data/${postId}.json`);
+                if (!response.ok) throw new Error(`Post not found (Status: ${response.status})`);
+
+                const post = await response.json();
+
+                // 2. Update Metadata & UI
+                document.title = `${post.title} - ${SITE_CONFIG.name}`;
+                document.getElementById('post-title').innerText = post.title;
+                document.getElementById('post-tag').innerText = post.tag;
+                document.getElementById('post-date').innerText = post.date;
+                document.getElementById('author-name').innerText = post.author;
+                document.getElementById('author-img').src = `../images/${post.authorImg}`;
+                document.getElementById('read-time').innerText = post.readTime;
+
+                // Update Hero Image & Actions
+                const heroArea = document.getElementById('post-hero-area');
+                const heroImg = document.getElementById('post-hero-img');
+                const actionsArea = document.getElementById('post-actions-area');
+                const btnVisit = document.getElementById('btn-visit');
+                const btnDownload = document.getElementById('btn-download');
+
+                if (post.image) {
+                    heroArea.style.display = 'block';
+                    heroImg.src = post.image.startsWith('http') ? post.image : `../images/${post.image}`;
+                }
+
+                let hasActions = false;
+                if (post.externalUrl) {
+                    btnVisit.style.display = 'inline-block';
+                    btnVisit.href = post.externalUrl;
+                    hasActions = true;
+                }
+
+                if (post.downloadUrl) {
+                    btnDownload.style.display = 'inline-block';
+                    btnDownload.href = post.downloadUrl;
+                    hasActions = true;
+                }
+
+                if (hasActions) actionsArea.style.display = 'block';
+
+                // 3. Render Markdown Content from the "content" field in JSON
+                document.getElementById('post-body').innerHTML = marked.parse(post.content);
+
+            } catch (error) {
+                console.error('Error loading blog post:', error);
+                document.getElementById('post-body').innerHTML = '<h2>Post not found</h2><p>Sorry, the article you are looking for does not exist.</p>';
+            }
+        });
+    </script>
+</body>
+
+</html>

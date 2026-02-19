@@ -1,0 +1,14 @@
+{
+    "title": "Scaling Infrastructure for Global Apps",
+    "tag": "DevOps",
+    "date": "Feb 10, 2026",
+    "author": "John Doe",
+    "authorImg": "team-1.jpg",
+    "readTime": "10 min read",
+    "image": "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1000&auto=format&fit=crop",
+    "externalUrl": "https://db-ku.com",
+    "downloadUrl": "https://db-ku.com/download/future-ui-pack.zip",
+    "bgColor": "#fff9f0",
+    "summary": "How we managed to scale our cloud services to support millions of concurrent users worldwide.",
+    "content": "Scaling for millions of users requires more than just adding more servers. It's about architecture, caching, and smart resource management.\n\n## Edge Computing\nBy moving computation closer to the user, we reduce latency and improve the overall experience of global applications.\n\n## Automated Scaling\nModern infrastructure should be able to breathe. It should expand during traffic peaks and contract during lulls to manage costs effectively."
+}

@@ -101,13 +101,19 @@ function loadNavbar(prefix) {
                                 <img class="logo-img" src="${prefix}images/${SITE_CONFIG.logo}" alt=""><span>${SITE_CONFIG.name}</span>
                             </a>
                         </section>
-                        <section class="navbar-section hide-sm">
-                            <a class="btn btn-link" href="${prefix}index.html#we-do">What we do</a>
-                            <a class="btn btn-link" href="${prefix}index.html#we-work">How we work</a>
-                            <a class="btn btn-link" href="${prefix}blog/index.html" style="${window.location.href.includes('/blog/') ? 'font-weight: 700; opacity: 1;' : ''}">Blog</a>
-                            <a class="btn btn-link" href="${prefix}index.html#price">Pricing</a>
-                            <a class="btn btn-link" href="${prefix}index.html#team">Our Team</a>
-                            <a class="btn btn-primary btn-hire-me" href="#" >Download</a>
+                        <section class="navbar-section section-menu">
+                            <input type="checkbox" id="nav-toggle" class="nav-toggle-input">
+                            <label for="nav-toggle" class="nav-toggle-label">
+                                <span></span>
+                            </label>
+                            <nav class="nav-links">
+                                <a class="btn btn-link" href="${prefix}index.html#we-do">What we do</a>
+                                <a class="btn btn-link" href="${prefix}index.html#we-work">How we work</a>
+                                <a class="btn btn-link" href="${prefix}blog/index.html" style="${window.location.href.includes('/blog/') ? 'font-weight: 700; opacity: 1;' : ''}">Blog</a>
+                                <a class="btn btn-link" href="${prefix}index.html#price">Pricing</a>
+                                <a class="btn btn-link" href="${prefix}index.html#team">Our Team</a>
+                                <a class="btn btn-primary btn-hire-me" href="#" >Download</a>
+                            </nav>
                         </section>
                     </header>
                 </div>

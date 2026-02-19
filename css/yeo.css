@@ -55,12 +55,16 @@ a:active {
     text-transform: uppercase;
     font-family: 'Poppins', sans-serif;
     letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
 }
 
 .logo-img {
-    padding-right: 10px;
+    margin-right: 10px;
     display: inline-block;
     height: 24px;
+    flex-shrink: 0;
 }
 
 .yeo-slogan {
@@ -153,7 +157,16 @@ a:active {
 .yeo-header .navbar {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 1.5rem 0 1rem 0;
+    padding: 1.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@media (max-width: 840px) {
+    .yeo-header .navbar {
+        padding: 1rem 0;
+    }
 }
 
 .yeo-header .navbar-section .btn.btn-link {
@@ -168,6 +181,120 @@ a:active {
     color: #ffffff;
     border-radius: 50px;
     padding: .25rem 1rem;
+}
+
+/* Mobile Navbar Styles */
+.nav-toggle-input {
+    display: none;
+}
+
+.nav-toggle-label {
+    display: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001;
+    margin-right: -10px;
+}
+
+.nav-toggle-label span,
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+    display: block;
+    background: #fff;
+    height: 2px;
+    width: 24px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+    content: '';
+    position: absolute;
+}
+
+.nav-toggle-label span::before {
+    bottom: 8px;
+}
+
+.nav-toggle-label span::after {
+    top: 8px;
+}
+
+/* Desktop Menu */
+.nav-links {
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 840px) {
+    .nav-toggle-label {
+        display: block;
+    }
+
+    .navbar-sticky .nav-toggle-label span,
+    .navbar-sticky .nav-toggle-label span::before,
+    .navbar-sticky .nav-toggle-label span::after {
+        background: #0C0091;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background: #0C0091;
+        flex-direction: column;
+        padding-top: 100px;
+        transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 1000;
+        align-items: center;
+    }
+
+    .nav-links a {
+        width: 100%;
+        text-align: center;
+        padding: 20px !important;
+        font-size: 1.2rem;
+        opacity: 0.9;
+        border-bottom: none;
+    }
+
+    .nav-links .btn-primary {
+        margin: 30px auto;
+        width: 200px;
+        text-align: center !important;
+        background: #00ffd4 !important;
+        color: #0C0091 !important;
+    }
+
+    .nav-toggle-input:checked~.nav-links {
+        right: 0;
+    }
+
+    /* Hamburger Animation */
+    .nav-toggle-input:checked+.nav-toggle-label {
+        position: fixed;
+        right: 1rem;
+        top: 1.5rem;
+    }
+
+    .nav-toggle-input:checked+.nav-toggle-label span {
+        background: transparent !important;
+    }
+
+    .nav-toggle-input:checked+.nav-toggle-label span::before {
+        transform: rotate(45deg);
+        bottom: 0;
+        background: #00ffd4 !important;
+    }
+
+    .nav-toggle-input:checked+.nav-toggle-label span::after {
+        transform: rotate(-45deg);
+        top: 0;
+        background: #00ffd4 !important;
+    }
 }
 
 /* Our Client*/
@@ -392,23 +519,26 @@ a:active {
 @media (max-width: 600px) {
 
     .slogan {
-        padding-top: 0rem;
+        padding-top: 6rem;
+        /* Give room for navbar */
     }
 
     .slogan h1 {
-        font-size: 1.6rem;
-        line-height: 1.5;
-        margin-bottom: .5rem;
+        font-size: 2.2rem;
+        /* Adjusted for better visibility */
+        line-height: 1.2;
+        margin-bottom: 1rem;
     }
 
     .yeo-slogan {
-        padding-bottom: 2rem;
+        padding-bottom: 4rem;
     }
 
     .yeo-slogan p {
-        font-size: .7rem;
+        font-size: 0.9rem;
         width: 100%;
-        margin-bottom: 1rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
     }
 
     .yeo-do {

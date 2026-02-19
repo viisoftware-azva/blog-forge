@@ -1,0 +1,14 @@
+{
+    "title": "Ethical Design in the Age of Algorithms",
+    "tag": "Design",
+    "date": "Feb 12, 2026",
+    "author": "Maria Oto",
+    "authorImg": "team-3.jpg",
+    "readTime": "5 min read",
+    "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=1000&auto=format&fit=crop",
+    "bgColor": "#eff6ff",
+    "summary": "Building products that respect user privacy, autonomy, and well-being.",
+    "content": "Design is a powerful tool. In 2026, we must use it responsibly. Dark patterns are out; ethical transparency is in.\n\n## Designing for Privacy\nPrivacy should be the default, not an option. We build systems that only collect what is strictly necessary.\n\n## Algorithmic Transparency\nUsers deserve to know why a certain piece of content is being shown to them. Open design helps build long-term trust.",
+    "externalUrl": "https://db-ku.com",
+    "downloadUrl": "https://db-ku.com"
+}

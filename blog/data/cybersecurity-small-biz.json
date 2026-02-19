@@ -1,0 +1,14 @@
+{
+    "title": "Cybersecurity for Small Businesses",
+    "tag": "Security",
+    "date": "Feb 16, 2026",
+    "author": "John Doe",
+    "authorImg": "team-1.jpg",
+    "readTime": "7 min read",
+    "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop",
+    "bgColor": "#f0fdf4",
+    "summary": "Essential security practices to protect your business from evolving digital threats.",
+    "content": "Security is not just for enterprises. Small businesses are often targets because they lack robust defenses. 2026 demands a zero-trust approach.\n\n## Multi-Factor Everything\nPassword-only authentication is dead. Passkeys and hardware security keys are now the standard for protecting sensitive business data.\n\n## Regular Audits\nAutomated security scanners have made it easier than ever to find and patch vulnerabilities before hackers do.",
+    "externalUrl": "https://db-ku.com",
+    "downloadUrl": "https://db-ku.com"
+}

@@ -1,0 +1,14 @@
+{
+    "title": "The Art of Minimalist UX",
+    "tag": "UX",
+    "date": "Feb 15, 2026",
+    "author": "Tinh Nguyen",
+    "authorImg": "team-2.jpg",
+    "readTime": "4 min read",
+    "image": "https://images.unsplash.com/photo-1545235617-9465d2a55698?q=80&w=1000&auto=format&fit=crop",
+    "bgColor": "#fafaf9",
+    "summary": "Why doing less often achieves more in the world of user experience design.",
+    "content": "Minimalism isn't just about white space; it's about clarity of purpose. Every pixel should serve a function.\n\n## Reducing Cognitive Load\nBy removing unnecessary elements, we allow users to focus on what matters. This leads to higher conversion rates and better user satisfaction.\n\n## Intentionality in Motion\nAnimations should only exist to provide feedback or guide the user, not just for the sake of being flashy.",
+    "externalUrl": "https://db-ku.com",
+    "downloadUrl": "https://db-ku.com"
+}

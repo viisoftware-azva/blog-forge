@@ -26,9 +26,18 @@
 
     <div class="blog-container">
         <div class="container">
-            <div class="columns" id="blog-posts-grid">
+            <div class="columns" id="blog-posts-grid" style="margin-left: -0.5rem; margin-right: -0.5rem;">
                 <div class="column col-12 text-center">
                     <p>Loading articles...</p>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="columns" style="margin-top: 40px;">
+                <div class="column col-12">
+                    <ul class="pagination" id="blog-pagination" style="justify-content: center; display: flex;">
+                        <!-- Pagination buttons will be injected here -->
+                    </ul>
                 </div>
             </div>
         </div>
@@ -42,38 +51,53 @@
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const grid = document.getElementById('blog-posts-grid');
+            const paginationEl = document.getElementById('blog-pagination');
+            const postsPerPage = 9;
+
+            // Get current page from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            let currentPage = parseInt(urlParams.get('page')) || 1;
 
             try {
-                // 1. Determine the absolute-ish path for the blog folder
-                // This works whether you are at /blog, /blog/, or /blog/index.html
                 const currentPath = window.location.pathname;
                 const blogPathIndex = currentPath.indexOf('/blog');
-                const blogBase = currentPath.substring(0, blogPathIndex + 5); // "/blog" or "/something/blog"
+                const blogBase = currentPath.substring(0, blogPathIndex + 5);
 
-                // 2. Fetch the manifest
+                // Fetch the manifest
                 let response = await fetch(`${blogBase}/posts.json`);
                 if (!response.ok) throw new Error(`Could not find posts.json at ${blogBase}/posts.json`);
 
-                const postIds = await response.json();
+                const allPostIds = await response.json();
+                const totalPosts = allPostIds.length;
+                const totalPages = Math.ceil(totalPosts / postsPerPage);
+
+                // Adjust current page if out of bounds
+                if (currentPage < 1) currentPage = 1;
+                if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
+
+                // Slice posts for current page
+                const startIndex = (currentPage - 1) * postsPerPage;
+                const endIndex = startIndex + postsPerPage;
+                const paginatedPostIds = allPostIds.slice(startIndex, endIndex);
+
                 grid.innerHTML = '';
 
-                // 3. Fetch each individual JSON
-                for (const id of postIds) {
+                // Fetch and render individual posts
+                for (const id of paginatedPostIds) {
                     try {
                         const postResponse = await fetch(`${blogBase}/data/${id}.json`);
                         const post = await postResponse.json();
-
-                        // Determine if image is external or local
                         const imgPath = post.image.startsWith('http') ? post.image : `../images/${post.image}`;
 
                         const postCard = `
-                            <div class="column col-4 col-md-6 col-sm-12">
+                            <div class="column col-4 col-md-6 col-sm-12" style="padding: 0.5rem;">
                                 <a href="${blogBase}/post.html?id=${id}" class="blog-card" style="text-decoration: none;">
-                                    <img src="${imgPath}" alt="${post.title}" class="blog-card-img" style="background: ${post.bgColor}; padding: 0; object-fit: cover; height: 180px; width: 100%;">
-                                    <div class="blog-card-content">
-                                        <span class="blog-card-tag">${post.tag}</span>
-                                        <h3 style="color: #2E2E2E;">${post.title}</h3>
-                                        <p>${post.summary}</p>
+                                    <img src="${imgPath}" alt="${post.title}" class="blog-card-img" style="background: ${post.bgColor}; padding: 0; object-fit: cover; height: 280px; width: 100%; flex-shrink: 0;">
+                                    <div class="blog-card-content" style="padding: 0.5rem 1rem 0 1rem;">
+                                        <div style="margin-bottom: 0.4rem;">
+                                            <span class="blog-card-tag" style="margin-bottom: 0;">${post.tag}</span>
+                                        </div>
+                                        <h3 style="color: #2E2E2E; margin-bottom: 0.5rem;">${post.title}</h3>
                                         <div class="blog-card-footer">
                                             <div class="author-info">
                                                 <img src="../images/${post.authorImg}" alt="${post.author}" class="author-img">
@@ -90,6 +114,41 @@
                         console.error(`Failed to load post data for ${id}`, e);
                     }
                 }
+
+                // Render Pagination Buttons
+                if (totalPages > 1) {
+                    let paginationHtml = '';
+
+                    // Previous button
+                    paginationHtml += `
+                        <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                            <a href="${currentPage === 1 ? '#' : '?page=' + (currentPage - 1)}">Previous</a>
+                        </li>
+                    `;
+
+                    // Page numbers
+                    for (let i = 1; i <= totalPages; i++) {
+                        paginationHtml += `
+                            <li class="page-item ${i === currentPage ? 'active' : ''}">
+                                <a href="?page=${i}">${i}</a>
+                            </li>
+                        `;
+                    }
+
+                    // Next button
+                    paginationHtml += `
+                        <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                            <a href="${currentPage === totalPages ? '#' : '?page=' + (currentPage + 1)}">Next</a>
+                        </li>
+                    `;
+
+                    paginationEl.innerHTML = paginationHtml;
+                }
+
+                if (totalPosts === 0) {
+                    grid.innerHTML = '<div class="column col-12 text-center"><p>No articles found.</p></div>';
+                }
+
             } catch (error) {
                 console.error('Error loading manifest:', error);
                 grid.innerHTML = `<div class="column col-12"><p>Failed to load articles. Error: ${error.message}</p></div>`;

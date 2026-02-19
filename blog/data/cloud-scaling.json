@@ -1,0 +1,14 @@
+{
+    "title": "Cloud Scaling Tactics for 2026",
+    "tag": "Infrastructure",
+    "date": "Feb 14, 2026",
+    "author": "Maria Oto",
+    "authorImg": "team-3.jpg",
+    "readTime": "5 min read",
+    "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop",
+    "bgColor": "#ecfeff",
+    "summary": "Mastering the complexities of global infrastructure scaling in a multi-cloud world.",
+    "content": "Scaling used to be about throwing more hardware at the problem. Today, it's about intelligent distribution.\n\n## Serverless Evolution\nServerless architecture has matured, allowing for nearly infinite scaling with zero management overhead for developers.\n\n## Global Data Consistency\nNew database technologies allow us to maintain high-speed access to data across the globe without sacrificing reliability.",
+    "externalUrl": "https://db-ku.com",
+    "downloadUrl": "https://db-ku.com"
+}

@@ -1,0 +1,14 @@
+{
+    "title": "Optimizing Modern JavaScript Performance",
+    "tag": "Performance",
+    "date": "Feb 17, 2026",
+    "author": "Maria Oto",
+    "authorImg": "team-3.jpg",
+    "readTime": "4 min read",
+    "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop",
+    "bgColor": "#fff1f2",
+    "summary": "Practical tips for keeping your web apps fast and responsive in 2026.",
+    "content": "Performance is the core of user retention. A slow app is a failed app. Here's how we optimize JavaScript today.\n\n## Tree Shaking and Native Modules\nWith browser support for native ES modules being universal, we've moved away from heavy bundlers in many cases. Native code is almost always faster.\n\n## Edge Computing\nMoving logic from the browser to the edge (Cloudflare Workers, etc.) has drastically reduced the amount of JS that needs to be executed on the client side.",
+    "externalUrl": "https://db-ku.com",
+    "downloadUrl": "https://db-ku.com"
+}

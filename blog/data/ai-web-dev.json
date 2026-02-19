@@ -1,0 +1,14 @@
+{
+    "title": "Artificial Intelligence in Web Development",
+    "tag": "AI",
+    "date": "Feb 18, 2026",
+    "author": "John Doe",
+    "authorImg": "team-1.jpg",
+    "readTime": "6 min read",
+    "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1000&auto=format&fit=crop",
+    "bgColor": "#f5f3ff",
+    "summary": "How AI is revolutionizing the way we write code and build web applications.",
+    "content": "AI is no longer just a buzzword; it's a fundamental shift in how software is created. Tools like Copilot and specialized LLMs are now integrated into every developer's workflow.\n\n## Automated Code Generation\nModern AI agents can now handle boilerplate code, unit testing, and even complex bug fixes with surprising accuracy. This allows humans to focus on higher-level architecture and creative problem solving.\n\n## Personalized User Experiences\nBeyond coding, AI allows us to build interfaces that adapt to user behavior in real-time, creating truly personalized web experiences that were previously impossible.",
+    "externalUrl": "https://db-ku.com",
+    "downloadUrl": "https://db-ku.com"
+}
